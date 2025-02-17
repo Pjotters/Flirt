@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Pjotters-flit - Inloggen</title>
+</head>
+<body>
+    <div id="login">
+        <h1>Inloggen</h1>
+        <input type="text" placeholder="Gebruikersnaam">
+        <input type="password" placeholder="Wachtwoord">
+        <button onclick="login()">Inloggen</button>
+    </div>
+    <div id="main" style="display:none;">
+        <h1>Welkom bij Pjotters-flit!</h1>
+        <button onclick="showRandomPhoto()">Toon een foto</button>
+        <div id="photoContainer" style="display:none;">
+            <img id="randomPhoto" src="" alt="Random Foto">
+            <button onclick="startChat()">Chatten</button>
+            <button onclick="startVideoCall()">Video Bellen</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
