@@ -5,6 +5,7 @@ const personImages = [
 ];
 
 let messageCount = 0;
+let currentChatUser = null; // Houdt de huidige chatgebruiker bij
 
 function showRandomPerson() {
     const randomIndex = Math.floor(Math.random() * personImages.length);
@@ -18,11 +19,12 @@ function showRandomPerson() {
 
 document.getElementById('acceptButton').addEventListener('click', function() {
     messageCount++;
+    currentChatUser = personImages[Math.floor(Math.random() * personImages.length)]; // Bewaar de huidige chatgebruiker
     if (messageCount <= 10) {
         window.location.href = 'chat.html'; // Ga naar de chatpagina
     } else {
         alert('Je kunt nu de belfunctie gebruiken!');
-        // Hier kun je de logica voor de belfunctie toevoegen
+        window.location.href = 'video.html'; // Ga naar de video belfunctie
     }
 });
 

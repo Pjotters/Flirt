@@ -1,12 +1,12 @@
-const startCallButton = document.getElementById('startCallButton');
 const localVideo = document.getElementById('localVideo');
 
-startCallButton.addEventListener('click', startVideoCall);
+document.getElementById('startCallButton').addEventListener('click', startVideoCall);
 
 function startVideoCall() {
-    navigator.mediaDevices.getUserMedia({ video: true })
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
         .then(stream => {
             localVideo.srcObject = stream;
+            // Hier kun je de logica toevoegen om de stream naar de andere gebruiker te sturen
         })
         .catch(error => {
             console.error('Error accessing media devices.', error);

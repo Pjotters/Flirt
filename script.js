@@ -23,6 +23,20 @@ function startVideoCall() {
     alert('Video belfunctie nog niet geïmplementeerd.');
 }
 
+// Firebase configuratie
+const firebaseConfig = {
+    apiKey: "AIzaSyBCXaYJI9dxwqKD1Qsb_9AOdsnVTPG2uHM",
+    authDomain: "pjotters-company.firebaseapp.com",
+    databaseURL: "https://pjotters-company-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "pjotters-company",
+    storageBucket: "pjotters-company.firebasestorage.app",
+    messagingSenderId: "64413422793",
+    appId: "1:64413422793:web:f3fc9937cbfb5432d6e918",
+    measurementId: "G-7G0XR0P4VP"
+};
+
+// Initialiseer Firebase
+firebase.initializeApp(firebaseConfig);
 const messagesRef = firebase.database().ref('messages');
 
 document.getElementById('sendButton').addEventListener('click', sendMessage);
@@ -32,29 +46,16 @@ function sendMessage() {
     const message = messageInput.value;
 
     if (message) {
-        const user = firebase.auth().currentUser; // Haal de huidige gebruiker op
-        if (user) {
-            messagesRef.push().set({
-                uid: user.uid, // Voeg de gebruikers-ID toe aan het bericht
-                message: message,
-                timestamp: Date.now()
-            });
-            messageInput.value = ''; // Leeg het invoerveld
-        } else {
-            alert('Je moet ingelogd zijn om een bericht te verzenden.');
-        }
+        messagesRef.push().set({
+            message: message,
+            timestamp: Date.now()
+        });
+        messageInput.value = '';
     }
 }
 
 messagesRef.on('child_added', function(data) {
-    const messageData = data.val();
-    displayMessage(messageData);
-});
-
-function displayMessage(messageData) {
+    const message = data.val().message;
     const messagesDiv = document.getElementById('messages');
-    const messageDiv = document.createElement('div');
-    messageDiv.textContent = `${messageData.uid}: ${messageData.message}`; // Toon de gebruikers-ID en het bericht
-    messagesDiv.appendChild(messageDiv);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight; // Scroll naar beneden
-}
+    messagesDiv.innerHTML += `<div>${message}</div>`;
+});
